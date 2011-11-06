@@ -1,0 +1,14 @@
+buildscript {
+    repositories {
+        maven {
+            url 'repo'
+        }
+    }
+    dependencies {
+        classpath group: 'org.gradle', name: 'customPlugin', version: '1.0-SNAPSHOT'
+    }
+}
+
+task greeting(type: org.gradle.GreetingTask) {
+    greeting = 'howdy!'
+}

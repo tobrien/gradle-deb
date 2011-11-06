@@ -1,0 +1,199 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>Chapter&nbsp;26.&nbsp;The Code Quality Plugin</title><link xmlns:xslthl="http://xslthl.sf.net" type="text/css" rel="stylesheet" href="base.css"><link xmlns:xslthl="http://xslthl.sf.net" type="text/css" rel="stylesheet" href="style.css"><link xmlns:xslthl="http://xslthl.sf.net" type="text/css" rel="stylesheet" href="userguide.css"><meta content="DocBook XSL Stylesheets V1.75.2" name="generator"><link rel="home" href="userguide.html" title="Gradle"><link rel="up" href="userguide.html" title="Gradle"><link rel="prev" href="jetty_plugin.html" title="Chapter&nbsp;25.&nbsp;The Jetty Plugin"><link rel="next" href="sonar_plugin.html" title="Chapter&nbsp;27.&nbsp;The Sonar Plugin"></head><body><div class="navheader"><div><div class="navbar"><a xmlns:xslthl="http://xslthl.sf.net" href="jetty_plugin.html" title="Chapter&nbsp;25.&nbsp;The Jetty Plugin">Previous</a><span>|</span><a xmlns:xslthl="http://xslthl.sf.net" href="userguide.html" title="Gradle">Contents</a><span>|</span><a xmlns:xslthl="http://xslthl.sf.net" href="sonar_plugin.html" title="Chapter&nbsp;27.&nbsp;The Sonar Plugin">Next</a></div></div></div><div class="chapter"><div class="titlepage"><div><div><h1 xmlns:xslthl="http://xslthl.sf.net"><a name="code_quality_plugin"></a>Chapter&nbsp;26.&nbsp;The Code Quality Plugin</h1></div></div></div><p>The code quality plugin adds tasks which perform code quality checks and generate reports from these checks.
+        The following tools are supported:
+        </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p><a class="ulink" href="http://checkstyle.sourceforge.net/index.html" target="_top">Checkstyle</a></p></li><li class="listitem"><p><a class="ulink" href="http://codenarc.sourceforge.net/index.html" target="_top">CodeNarc</a></p></li></ul></div><p>
+    </p><div class="section"><div class="titlepage"><div><div><h2 class="title"><a name="N12B7F"></a>26.1.&nbsp;Usage</h2></div></div></div><p>To use the code quality plugin, include in your build script:</p><div class="example"><a name="useCodeQualityPlugin"></a><p class="title"><b>Example&nbsp;26.1.&nbsp;Using the code quality plugin</b></p><div class="example-contents"><p><code class="filename">build.gradle</code></p><pre class="programlisting">apply plugin: <span xmlns:xslthl="http://xslthl.sf.net" class="hl-string">'code-quality'</span></pre></div></div><br class="example-break"></div><div class="section"><div class="titlepage"><div><div><h2 class="title"><a name="N12B8E"></a>26.2.&nbsp;Tasks</h2></div></div></div><p>When used with the Java plugin, the code quality plugin adds the following tasks to the project:</p><div xmlns:xslthl="http://xslthl.sf.net" class="table"><p class="title"><b>Table&nbsp;26.1.&nbsp;Code quality plugin - Java tasks</b></p><div class="table-contents"><table id="N12B93"><thead><tr>
+                    <td>Task name</td>
+                    <td>Depends on</td>
+                    <td>Type</td>
+                    <td>Description</td>
+                </tr></thead><tr>
+                <td>
+                    <code class="literal">checkstyleMain</code>
+                </td>
+                <td>-</td>
+                <td><a class="ulink" href="../dsl/org.gradle.api.plugins.quality.Checkstyle.html" target="_top"><code class="classname">Checkstyle</code></a></td>
+                <td>Runs Checkstyle against the production Java source files.</td>
+            </tr><tr>
+                <td>
+                    <code class="literal">checkstyleTest</code>
+                </td>
+                <td><code class="literal">compile</code></td>
+                <td><a class="ulink" href="../dsl/org.gradle.api.plugins.quality.Checkstyle.html" target="_top"><code class="classname">Checkstyle</code></a></td>
+                <td>Runs Checkstyle against the test Java source files.</td>
+            </tr><tr>
+                <td>
+                    <code class="literal">checkstyle<em class="replaceable"><code>SourceSet</code></em></code>
+                </td>
+                <td>-</td>
+                <td><a class="ulink" href="../dsl/org.gradle.api.plugins.quality.Checkstyle.html" target="_top"><code class="classname">Checkstyle</code></a></td>
+                <td>Runs Checkstyle against the given source set's Java source files.</td>
+            </tr></table></div></div><p>When used with the Groovy plugin, the code quality plugin adds the following tasks to the project:</p><div xmlns:xslthl="http://xslthl.sf.net" class="table"><p class="title"><b>Table&nbsp;26.2.&nbsp;Code quality plugin - tasks</b></p><div class="table-contents"><table id="N12BE6"><thead><tr>
+                    <td>Task name</td>
+                    <td>Depends on</td>
+                    <td>Type</td>
+                    <td>Description</td>
+                </tr></thead><tr>
+                <td>codenarcMain</td>
+                <td>-</td>
+                <td><a class="ulink" href="../dsl/org.gradle.api.plugins.quality.CodeNarc.html" target="_top"><code class="classname">CodeNarc</code></a></td>
+                <td>Runs CodeNarc against the production Groovy source files.</td>
+            </tr><tr>
+                <td>codenarcTest</td>
+                <td>-</td>
+                <td><a class="ulink" href="../dsl/org.gradle.api.plugins.quality.CodeNarc.html" target="_top"><code class="classname">CodeNarc</code></a></td>
+                <td>Runs CodeNarc against the test Groovy source files.</td>
+            </tr><tr>
+                <td>codenarc<em class="replaceable"><code>SourceSet</code></em></td>
+                <td>-</td>
+                <td><a class="ulink" href="../dsl/org.gradle.api.plugins.quality.CodeNarc.html" target="_top"><code class="classname">CodeNarc</code></a></td>
+                <td>Runs CodeNarc against the given source set's Groovy source files.</td>
+            </tr></table></div></div><p>The Code quality plugin adds the following dependencies to tasks added by the Java plugin.</p><div xmlns:xslthl="http://xslthl.sf.net" class="table"><p class="title"><b>Table&nbsp;26.3.&nbsp;Code quality plugin - additional task dependencies</b></p><div class="table-contents"><table id="N12C2F"><thead><td>Task name</td><td>Depends on</td></thead><tr>
+                <td>check</td>
+                <td>All Checkstyle and CodeNarc tasks, including <code class="literal">checkstyleMain</code>,
+                    <code class="literal">checkstyleTest</code>,
+                    <code class="literal">codenarcMain</code> and
+                    <code class="literal">codenarcTest</code>
+                </td>
+            </tr></table></div></div><div class="figure"><a name="N12C4B"></a><p class="title"><b>Figure&nbsp;26.1.&nbsp;Code quality plugin - tasks</b></p><div class="figure-contents"><img src="img/codeQualityPluginTasks.png" alt="Code quality plugin - tasks"></div></div><br class="figure-break"></div><div class="section"><div class="titlepage"><div><div><h2 class="title"><a name="N12C51"></a>26.3.&nbsp;Project layout</h2></div></div></div><p>The code quality plugin expects the following project layout:</p><div xmlns:xslthl="http://xslthl.sf.net" class="table"><p class="title"><b>Table&nbsp;26.4.&nbsp;Code quality plugin - project layout</b></p><div class="table-contents"><table id="N12C56"><thead><tr>
+                    <td>File</td>
+                    <td>Meaning</td>
+                </tr></thead><tr>
+                <td>
+                    <code class="filename">config/checkstyle/checkstyle.xml</code>
+                </td>
+                <td>Checkstyle configuration file</td>
+            </tr><tr>
+                <td>
+                    <code class="filename">config/codenarc/codenarc.xml</code>
+                </td>
+                <td>CodeNarc configuration file</td>
+            </tr></table></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title"><a name="N12C78"></a>26.4.&nbsp;Dependency management</h2></div></div></div><p>The code quality plugin does not add any dependency configurations.</p></div><div class="section"><div class="titlepage"><div><div><h2 class="title"><a name="N12C7D"></a>26.5.&nbsp;Convention properties</h2></div></div></div><p>When used with the Java plugin, the code quality plugin adds the following convention properties to the project:</p><div xmlns:xslthl="http://xslthl.sf.net" class="table"><p class="title"><b>Table&nbsp;26.5.&nbsp;Code quality plugin - convention properties</b></p><div class="table-contents"><table id="N12C82"><thead><tr>
+                    <td>Property name</td>
+                    <td>Type</td>
+                    <td>Default value</td>
+                    <td>Description</td>
+                </tr></thead><tr>
+                <td>
+                    <code class="literal">checkstyleConfigFileName</code>
+                </td>
+                <td>
+                    <code class="classname">String</code>
+                </td>
+                <td>
+                    <code class="literal">config/checkstyle/checkstyle.xml</code>
+                </td>
+                <td>
+                    The location of the Checkstyle configuration file, relative to the project directory.
+                </td>
+            </tr><tr>
+                <td>
+                    <code class="literal">checkstyleConfigFile</code>
+                </td>
+                <td>
+                    <code class="classname">File</code> (read-only)
+                </td>
+                <td>
+                    <code class="literal"><em class="replaceable"><code>projectDir</code></em>/<em class="replaceable"><code>checkstyleConfigFileName</code></em></code>
+                </td>
+                <td>
+                    The Checkstyle configuration file.
+                </td>
+            </tr><tr>
+                <td>
+                    <code class="literal">checkstyleResultsDirName</code>
+                </td>
+                <td>
+                    <code class="classname">String</code>
+                </td>
+                <td>
+                    <code class="literal">checkstyle</code>
+                </td>
+                <td>
+                    The name of the directory to generate Checkstyle results into, relative to the build directory.
+                </td>
+            </tr><tr>
+                <td>
+                    <code class="literal">checkstyleResultsDir</code>
+                </td>
+                <td>
+                    <code class="classname">File</code> (read-only)
+                </td>
+                <td>
+                    <code class="literal"><em class="replaceable"><code>buildDir</code></em>/<em class="replaceable"><code>checkstyleResultsDirName</code></em></code>
+                </td>
+                <td>
+                    The directory to generate Checkstyle results into.
+                </td>
+            </tr><tr>
+                <td>
+                    <code class="literal">checkstyleProperties</code>
+                </td>
+                <td>
+                    <code class="classname">Map</code>
+                </td>
+                <td>
+                    <code class="literal">[:]</code>
+                </td>
+                <td>
+                    The properties to use when loading the Checkstyle configuration.
+                </td>
+            </tr></table></div></div><p>These convention properties are provided by a convention object of type
+            <a class="ulink" href="../groovydoc/org/gradle/api/plugins/quality/JavaCodeQualityPluginConvention.html" target="_top"><code class="classname">JavaCodeQualityPluginConvention</code></a>.</p><p>When used with the Groovy plugin, the code quality plugin adds the following convention properties to the project:</p><div xmlns:xslthl="http://xslthl.sf.net" class="table"><p class="title"><b>Table&nbsp;26.6.&nbsp;Code quality plugin - convention properties</b></p><div class="table-contents"><table id="N12D18"><thead><tr>
+                    <td>Property name</td>
+                    <td>Type</td>
+                    <td>Default value</td>
+                    <td>Description</td>
+                </tr></thead><tr>
+                <td>
+                    <code class="literal">codeNarcConfigFileName</code>
+                </td>
+                <td>
+                    <code class="classname">String</code>
+                </td>
+                <td>
+                    <code class="literal">config/codenarc/codenarc.xml</code>
+                </td>
+                <td>
+                    The location of the CodeNarc configuration file, relative to the project directory.
+                </td>
+            </tr><tr>
+                <td>
+                    <code class="literal">codeNarcConfigFile</code>
+                </td>
+                <td>
+                    <code class="classname">File</code> (read-only)
+                </td>
+                <td>
+                    <code class="literal"><em class="replaceable"><code>projectDir</code></em>/<em class="replaceable"><code>codeNarcConfigFileName</code></em></code>
+                </td>
+                <td>
+                    The CodeNarc configuration file.
+                </td>
+            </tr><tr>
+                <td>
+                    <code class="literal">codeNarcReportsDirName</code>
+                </td>
+                <td>
+                    <code class="classname">String</code>
+                </td>
+                <td>
+                    <code class="literal">codenarc</code>
+                </td>
+                <td>
+                    The name of the directory to generate CodeNarc reports into, relative to the reports directory.
+                </td>
+            </tr><tr>
+                <td>
+                    <code class="literal">codeNarcReportsDir</code>
+                </td>
+                <td>
+                    <code class="classname">File</code> (read-only)
+                </td>
+                <td>
+                    <code class="literal"><em class="replaceable"><code>reportsDir</code></em>/<em class="replaceable"><code>codeNarcReportsDirName</code></em></code>
+                </td>
+                <td>
+                    The directory to generate CodeNarc reports into.
+                </td>
+            </tr></table></div></div><p>These convention properties are provided by a convention object of type
+            <a class="ulink" href="../groovydoc/org/gradle/api/plugins/quality/GroovyCodeQualityPluginConvention.html" target="_top"><code class="classname">GroovyCodeQualityPluginConvention</code></a>.</p></div></div><div class="navfooter"><div><div class="navbar"><a xmlns:xslthl="http://xslthl.sf.net" href="jetty_plugin.html" title="Chapter&nbsp;25.&nbsp;The Jetty Plugin">Previous</a><span>|</span><a xmlns:xslthl="http://xslthl.sf.net" href="userguide.html" title="Gradle">Contents</a><span>|</span><a xmlns:xslthl="http://xslthl.sf.net" href="sonar_plugin.html" title="Chapter&nbsp;27.&nbsp;The Sonar Plugin">Next</a></div></div></div></body></html>

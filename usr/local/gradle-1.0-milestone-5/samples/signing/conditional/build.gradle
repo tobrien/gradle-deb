@@ -1,0 +1,25 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'signing'
+
+group = 'gradle'
+
+version = '1.0-SNAPSHOT'
+isReleaseVersion = !version.endsWith("SNAPSHOT")
+
+signing {
+    if (isReleaseVersion) {
+        sign configurations.archives
+    }
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: uri("${buildDir}/repo"))
+            if (isReleaseVersion) {
+                beforeDeployment { MavenDeployment deployment -> signPom(deployment) }
+            }
+        }
+    }
+}
