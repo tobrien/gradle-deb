@@ -1,8 +1,0 @@
-Package: gradle
-Version: 1.0-M5
-Section: base
-Priority: optional
-Architecture: all
-Depends: java6-sdk
-Maintainer: Tim O'Brien <tobrien@discursive.com>
-Description: Gradle is a build tool, for more information go to www.gradle.org
